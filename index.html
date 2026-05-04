@@ -237,13 +237,12 @@
 
         /* ===== SECTIONS ===== */
         .section {
-            padding: 5rem 0;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-left: 2rem;
-            padding-right: 2rem;
-        }
-
+    padding: 4rem 0; /* Reduced from 5rem */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
         .section-title {
             text-align: center;
             font-size: 2.5rem;
@@ -257,21 +256,23 @@
 
         /* ===== CATEGORIES CONTAINER ===== */
         .categories {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem; /* Reduced margin */
-        }
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 1rem !important; /* FIXED */
+}
+
+
 
         /* ===== INDIVIDUAL CATEGORY SECTION ===== */
         .category-section {
-            display: none;
-            margin-top: 2rem; /* Reduced margin */
-            padding: 2rem;
-            background: white;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-        }
+    display: none;
+    margin: 1rem 0 !important; /* FIXED - minimal margins */
+    padding: 1.5rem !important;
+    background: white;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+}
 
         .category-section.active {
             display: block;
@@ -554,6 +555,25 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        @media (max-width: 768px) {
+    .section {
+        padding: 2rem 1rem !important; /* Much tighter on mobile */
+    }
+    
+    #categories {
+        padding-bottom: 1rem !important;
+    }
+}
+
+/* ===== EMERGENCY SCROLL GAP FIX ===== */
+#categories { padding-bottom: 1.5rem !important; }
+.category-section { margin: 0.5rem 0 !important; padding: 1.5rem !important; }
+.categories { margin-bottom: 0.5rem !important; }
+.section { padding: 3rem 0 !important; }
+@media (max-width: 768px) { .section { padding: 2rem 1rem !important; } }
+
+
     </style>
 </head>
 <body>
