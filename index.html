@@ -96,10 +96,64 @@
             color: var(--primary);
         }
 
+        /* ===== MOBILE MENU ===== */
         .mobile-menu {
             display: none;
             flex-direction: column;
             cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger-icon {
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+
+        /* Mobile menu overlay */
+        .mobile-nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-nav-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background: white;
+            padding: 5rem 2rem 2rem;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
+            z-index: 1000;
+        }
+
+        .mobile-nav-menu.active {
+            right: 0;
+        }
+
+        .mobile-nav-menu ul {
+            list-style: none;
+        }
+
+        .mobile-nav-menu .nav-link {
+            display: block;
+            padding: 1rem 0;
+            font-size: 1.2rem;
         }
 
         /* ===== HERO SECTION ===== */
@@ -124,7 +178,7 @@
             animation: fadeInUp 1s ease;
         }
 
-        .hero h1 {
+        .hero h2 {
             font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 800;
             margin-bottom: 1rem;
@@ -206,13 +260,13 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem; /* Reduced margin */
         }
 
         /* ===== INDIVIDUAL CATEGORY SECTION ===== */
         .category-section {
             display: none;
-            margin-top: 3rem;
+            margin-top: 2rem; /* Reduced margin */
             padding: 2rem;
             background: white;
             border-radius: 20px;
@@ -232,45 +286,49 @@
         }
 
         /* ===== CATEGORY CARDS ===== */
-        .category-card {
-            background: white;
-            border-radius: 20px;
-            padding: 2.5rem;
-            text-align: center;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
+.category-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
 
-        .category-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-lg);
-        }
+.category-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+}
 
-        .category-card.active {
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            color: white;
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: var(--shadow-lg);
-        }
+.category-card.active {
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    color: white;
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: var(--shadow-lg);
+}
 
-        .category-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+/* ===== CATEGORY ICONS ===== */
+.category-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+}
 
-        .category-card.active .category-icon {
-            background: white;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: white;
-        }
-
+.category-card.active .category-icon {
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    -webkit-text-fill-color: white !important;
+    background-clip: initial !important;
+    color: white !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
+}
         /* ===== MENU GRID FOR CATEGORY ITEMS ===== */
         .category-menu-grid {
             display: grid;
@@ -367,114 +425,75 @@
             animation: heartBeat 0.6s ease;
         }
 
-        /* ===== CONTACT & PAYMENT SECTIONS (unchanged) ===== */
-        .contact-section {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            text-align: center;
-        }
+       /* ===== CONTACT SECTION - PERFECT WHITE TEXT ===== */
+.contact-section {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    text-align: center;
+    position: relative;
+}
 
-        .contact-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
+.contact-section .section-title {
+    color: white !important;
+    background: none !important;
+    -webkit-text-fill-color: white !important;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.6) !important;  /* STRONGER */
+    font-weight: 800 !important;
+}
 
-        .contact-item {
-            background: rgba(255,255,255,0.1);
-            padding: 2rem;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
+.contact-section p {
+    font-size: 1.3rem;
+    margin-bottom: 3rem;
+    opacity: 0.95;
+    color: white !important;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5) !important;
+}
 
-        .contact-item:hover {
-            transform: translateY(-5px);
-            background: rgba(255,255,255,0.2);
-        }
+.contact-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
 
-        .contact-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
+.contact-item {
+    background: rgba(255,255,255,0.15);
+    padding: 2rem;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.2);
+}
 
-        .phone-link {
-            color: white;
-            text-decoration: none;
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
+.contact-item:hover {
+    transform: translateY(-5px);
+    background: rgba(255,255,255,0.25);
+}
 
+.contact-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.5));  /* ← CRISP EMOJI */
+}
+
+.phone-link {
+    color: white !important;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5) !important;
+}
+
+        /* ===== PAYMENT SECTION ===== */
         .payment-section {
             background: var(--light);
         }
 
         .qr-image {
-        width: 200px;
-        height: 200px;
-        object-fit: contain;
-        margin-bottom: 15px;
-        }
-
-        .qr-scanner {
-            text-align: center;
-            padding: 40px 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 20px;
-            color: white;
-            max-width: 350px;
-            margin: 40px auto;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-
-        .qr-placeholder {
             width: 200px;
             height: 200px;
-            margin: 0 auto 20px;
-            border-radius: 16px;
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-image: url('images/qr-code.png'); /* ✅ Path for single file */
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            border: 4px solid rgba(255,255,255,0.3);
-            position: relative;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .qr-placeholder::before {
-            content: '📱 Scan Me';
-            position: absolute;
-            bottom: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .qr-placeholder:hover {
-            transform: scale(1.05);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-        }
-
-        .qr-placeholder:hover::before {
-            opacity: 1;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .qr-placeholder {
-                width: 160px;
-                height: 160px;
-            }
+            object-fit: contain;
+            margin-bottom: 15px;
         }
 
         /* ===== ANIMATIONS ===== */
@@ -497,10 +516,32 @@
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
-            .nav-menu { display: none; }
-            .mobile-menu { display: flex; }
-            .cta-buttons { flex-direction: column; align-items: center; }
-            .menu-grid, .category-menu-grid { grid-template-columns: 1fr; }
+            .nav-menu { 
+                display: none !important; 
+            }
+            .mobile-menu { 
+                display: flex; 
+            }
+            .cta-buttons { 
+                flex-direction: column; 
+                align-items: center; 
+            }
+            .menu-grid, .category-menu-grid { 
+                grid-template-columns: 1fr; 
+            }
+            .categories {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            .section {
+                padding: 3rem 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .categories {
+                grid-template-columns: 1fr;
+            }
         }
 
         .reveal {
@@ -516,6 +557,19 @@
     </style>
 </head>
 <body>
+    <!-- ===== MOBILE MENU OVERLAY ===== -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+    
+    <!-- ===== MOBILE MENU ===== -->
+    <div class="mobile-nav-menu" id="mobileNavMenu">
+        <ul>
+            <li><a href="#home" class="nav-link">Home</a></li>
+            <li><a href="#categories" class="nav-link">Menu</a></li>
+            <li><a href="#full-menu" class="nav-link">Full Menu</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+    </div>
+
     <!-- ===== NAVBAR ===== -->
     <nav class="navbar">
         <div class="nav-container">
@@ -526,8 +580,8 @@
                 <li><a href="#full-menu" class="nav-link">Full Menu</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
-            <div class="mobile-menu">
-                <i class="fas fa-bars" style="font-size: 1.5rem; color: var(--dark);"></i>
+            <div class="mobile-menu" id="mobileMenu">
+                <i class="fas fa-bars hamburger-icon"></i>
             </div>
         </div>
     </nav>
@@ -570,10 +624,8 @@
 
     <!-- ===== CONTACT ===== -->
     <section id="contact" class="section contact-section reveal">
-        <h2 class="section-title" style="color: white;">📞 Ready to Order?</h2>
-        <p style="font-size: 1.3rem; margin-bottom: 3rem; opacity: 0.95;">
-            Call us now and get your favorite dishes delivered instantly!
-        </p>
+        <h2 class="section-title">📞 Ready to Order?</h2>
+        <p>Call us now and get your favorite dishes delivered instantly!</p>
         <div class="contact-info">
             <div class="contact-item">
                 <div class="contact-icon">📱</div>
@@ -595,57 +647,51 @@
         </div>
     </section>
 
-  <!-- ===== PAYMENT ===== -->
-
+    <!-- ===== PAYMENT ===== -->
     <section id="payment" class="section payment-section reveal">
         <h2 class="section-title">💳 Easy Payment</h2>
-        <div class="qr-scanner">
-    <img src="images/qr-image.png" alt="UPI QR Code" class="qr-image">
-    <h3>Scan to Pay</h3>
-    <p>Pay instantly using UPI apps</p>
-</div>
+        <div style="text-align: center;">
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; color: white; max-width: 350px; margin: 40px auto; padding: 40px 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
+                <img src="images/qr-image.png" alt="UPI QR Code" style="width: 200px; height: 200px; object-fit: contain; margin-bottom: 15px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                <h3>Scan to Pay</h3>
+                <p>Pay instantly using UPI apps</p>
+            </div>
+        </div>
     </section>
 
     <script>
-        // ===== MENU DATA (Same as before) =====
+        // ===== MENU DATA =====
         const menuData = [
-
-        // BREAKFAST
-        {id:1, name:"Poha", price:"₹120", desc:"Flattened rice with onions, peanuts & spices", category:"breakfast", image:"images/Poha.png"},
-        {id:2, name:"Upma", price:"₹110", desc:"Semolina with vegetables & coconut chutney", category:"breakfast", image:"images/Upma.jpg"},
-        {id:3, name:"Sheera", price:"₹130", desc:"Semolina pudding with ghee & dry fruits", category:"breakfast", image:"images/Sheera.jpg"},
-
-        // STARTERS
-        {id:4, name:"Masala Papad", price:"₹80", desc:"Crispy papad with onions & chaat masala", category:"starters", image:"images/masalapapad.webp"},
-        {id:5, name:"Fryums", price:"₹70", desc:"Crispy fried papad with spicy chutney", category:"starters", image:"images/fryums.jpg"},
-
-        // PAV BHAJI
-        {id:6, name:"Amul Pav Bhaji", price:"₹180", desc:"Classic pav bhaji with Amul butter", category:"pavbhaji", image:"images/amulpavbhaji.jpg"},
-        {id:7, name:"Desi Ghee Pav Bhaji", price:"₹200", desc:"Traditional with pure desi ghee", category:"pavbhaji", image:"images/desigheepavbhaji.jpg"},
-        {id:8, name:"Amul Pav Bhaji with Masala Pav", price:"₹220", desc:"With special masala pav", category:"pavbhaji", image:"images/ampabhajimasala.jpg"},
-        {id:9, name:"Desi Ghee Pav Bhaji with Masala Pav", price:"₹240", desc:"Premium with masala pav", category:"pavbhaji", image:"images/desigheepabhajmasla.jpg"},
-
-        // THALI
-        {id:10, name:"Veg Thali", price:"₹250", desc:"2 Chapati, 2 Sabji, Dal, Rice, Papad, Salad", category:"thali", image:"images/vegthali.jpg"},
-        {id:11, name:"Special Veg Thali", price:"₹320", desc:"2 Chapati, Paneer, 2 Sabji, Dal, Rice, Shrikhand", category:"thali", image:"images/specialvegthali.jpg"},
-        {id:12, name:"Gavran Thali", price:"₹280", desc:"2 Bhakri, 2 Bhaji, Thecha, Dahi, Kanda, Limbu", category:"thali", image:"images/gavranvegthali.jpg"},
-        {id:13, name:"Special Pithla Bhakri", price:"₹220", desc:"Authentic Maharashtrian pithla with bhakri", category:"thali", image:"images/pithlabhakri.webp"},
-
-        // RICE
-        {id:14, name:"Varan Bhat ani Sajuk Tup", price:"₹160", desc:"Varan bhat with homemade ghee", category:"rice", image:"images/varanbhat.jpg"},
-        {id:15, name:"Jeera Rice", price:"₹140", desc:"Fragrant basmati with cumin seeds", category:"rice", image:"images/jeerarice.jpg"},
-        {id:16, name:"Jeera Rice Masoora Marke", price:"₹180", desc:"Jeera rice with masoor dal tadka", category:"rice", image:"images/masoorjeerarice.jpg"},
-        {id:17, name:"Masale Bhat", price:"₹200", desc:"Spicy rice with Goda masala", category:"rice", image:"images/masalebhat.jpg"},
-        {id:18, name:"Kadhi Bhat", price:"₹170", desc:"Crispy pakoda kadhi with rice", category:"rice", image:"images/kadhibhat.webp"},
-
-        // BEVERAGES
-        {id:19, name:"Sprite - 200ml", price:"₹50", desc:"Refreshing lemon-lime soda", category:"beverages", image:"images/sprite.jpg"},
-        {id:20, name:"Pepsi - 200ml", price:"₹50", desc:"Classic cola taste", category:"beverages", image:"images/pepsi.jpg"},
-        {id:21, name:"Mirinda - 200ml", price:"₹50", desc:"Orange flavored fizzy drink", category:"beverages", image:"images/mirinda.jpg"},
-        {id:22, name:"Mattha", price:"₹40", desc:"Spiced buttermilk perfect with meals", category:"beverages", image:"images/mattha.jpg"},
-        {id:23, name:"Tak", price:"₹35", desc:"Fresh thin buttermilk", category:"beverages", image:"images/tak.webp"},
-        {id:24, name:"Sol Kadhi", price:"₹60", desc:"Traditional kokum & coconut milk drink", category:"beverages", image:"images/solkadhi.jpg"}
-
+            // BREAKFAST
+            {id:1, name:"Poha", price:"₹120", desc:"Flattened rice with onions, peanuts & spices", category:"breakfast", image:"images/Poha.png"},
+            {id:2, name:"Upma", price:"₹110", desc:"Semolina with vegetables & coconut chutney", category:"breakfast", image:"images/Upma.jpg"},
+            {id:3, name:"Sheera", price:"₹130", desc:"Semolina pudding with ghee & dry fruits", category:"breakfast", image:"images/Sheera.jpg"},
+            // STARTERS
+            {id:4, name:"Masala Papad", price:"₹80", desc:"Crispy papad with onions & chaat masala", category:"starters", image:"images/masalapapad.webp"},
+            {id:5, name:"Fryums", price:"₹70", desc:"Crispy fried papad with spicy chutney", category:"starters", image:"images/fryums.jpg"},
+            // PAV BHAJI
+            {id:6, name:"Amul Pav Bhaji", price:"₹180", desc:"Classic pav bhaji with Amul butter", category:"pavbhaji", image:"images/amulpavbhaji.jpg"},
+            {id:7, name:"Desi Ghee Pav Bhaji", price:"₹200", desc:"Traditional with pure desi ghee", category:"pavbhaji", image:"images/desigheepavbhaji.jpg"},
+            {id:8, name:"Amul Pav Bhaji with Masala Pav", price:"₹220", desc:"With special masala pav", category:"pavbhaji", image:"images/ampabhajimasala.jpg"},
+            {id:9, name:"Desi Ghee Pav Bhaji with Masala Pav", price:"₹240", desc:"Premium with masala pav", category:"pavbhaji", image:"images/desigheepabhajmasla.jpg"},
+            // THALI
+            {id:10, name:"Veg Thali", price:"₹250", desc:"2 Chapati, 2 Sabji, Dal, Rice, Papad, Salad", category:"thali", image:"images/vegthali.jpg"},
+            {id:11, name:"Special Veg Thali", price:"₹320", desc:"2 Chapati, Paneer, 2 Sabji, Dal, Rice, Shrikhand", category:"thali", image:"images/specialvegthali.jpg"},
+            {id:12, name:"Gavran Thali", price:"₹280", desc:"2 Bhakri, 2 Bhaji, Thecha, Dahi, Kanda, Limbu", category:"thali", image:"images/gavranvegthali.jpg"},
+            {id:13, name:"Special Pithla Bhakri", price:"₹220", desc:"Authentic Maharashtrian pithla with bhakri", category:"thali", image:"images/pithlabhakri.webp"},
+            // RICE
+            {id:14, name:"Varan Bhat ani Sajuk Tup", price:"₹160", desc:"Varan bhat with homemade ghee", category:"rice", image:"images/varanbhat.jpg"},
+            {id:15, name:"Jeera Rice", price:"₹140", desc:"Fragrant basmati with cumin seeds", category:"rice", image:"images/jeerarice.jpg"},
+            {id:16, name:"Jeera Rice Masoora Marke", price:"₹180", desc:"Jeera rice with masoor dal tadka", category:"rice", image:"images/masoorjeerarice.jpg"},
+            {id:17, name:"Masale Bhat", price:"₹200", desc:"Spicy rice with Goda masala", category:"rice", image:"images/masalebhat.jpg"},
+            {id:18, name:"Kadhi Bhat", price:"₹170", desc:"Crispy pakoda kadhi with rice", category:"rice", image:"images/kadhibhat.webp"},
+            // BEVERAGES
+            {id:19, name:"Sprite - 200ml", price:"₹50", desc:"Refreshing lemon-lime soda", category:"beverages", image:"images/sprite.jpg"},
+            {id:20, name:"Pepsi - 200ml", price:"₹50", desc:"Classic cola taste", category:"beverages", image:"images/pepsi.jpg"},
+            {id:21, name:"Mirinda - 200ml", price:"₹50", desc:"Orange flavored fizzy drink", category:"beverages", image:"images/mirinda.jpg"},
+            {id:22, name:"Mattha", price:"₹40", desc:"Spiced buttermilk perfect with meals", category:"beverages", image:"images/mattha.jpg"},
+            {id:23, name:"Tak", price:"₹35", desc:"Fresh thin buttermilk", category:"beverages", image:"images/tak.webp"},
+            {id:24, name:"Sol Kadhi", price:"₹60", desc:"Traditional kokum & coconut milk drink", category:"beverages", image:"images/solkadhi.jpg"}
         ];
 
         // ===== CATEGORY CONFIG =====
@@ -665,7 +711,34 @@
             initScrollAnimations();
             initLikeButtons();
             initSmoothScrolling();
+            initMobileMenu(); // ✅ Mobile menu initialization
         });
+
+        // ===== MOBILE MENU FUNCTIONALITY ✅ FIXED =====
+        function initMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileNavMenu = document.getElementById('mobileNavMenu');
+            const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+
+            mobileMenu.addEventListener('click', function(e) {
+                e.stopPropagation();
+                mobileNavMenu.classList.toggle('active');
+                mobileNavOverlay.classList.toggle('active');
+            });
+
+            mobileNavOverlay.addEventListener('click', function() {
+                mobileNavMenu.classList.remove('active');
+                mobileNavOverlay.classList.remove('active');
+            });
+
+            // Close mobile menu when clicking on nav links
+            document.querySelectorAll('.mobile-nav-menu .nav-link').forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileNavMenu.classList.remove('active');
+                    mobileNavOverlay.classList.remove('active');
+                });
+            });
+        }
 
         // ===== CREATE CATEGORY BUTTONS =====
         function createCategoryCards() {
@@ -687,9 +760,9 @@
 
             // Add click listeners
             document.querySelectorAll('.category-card').forEach(card => {
-                card.addEventListener('click', function() {
+                card.addEventListener('click', function(e) {
                     const category = this.dataset.category;
-                    showCategoryProducts(category);
+                    showCategoryProducts(category, e);
                 });
             });
         }
@@ -699,15 +772,15 @@
             return menuData.filter(item => item.category === category).length;
         }
 
-        // ===== SHOW PRODUCTS UNDER CATEGORY =====
-        function showCategoryProducts(category) {
+        // ===== SHOW PRODUCTS UNDER CATEGORY - FIXED =====
+        function showCategoryProducts(category, e) {
             const container = document.getElementById('categoryProductsContainer');
             
             // Remove active class from all category cards
             document.querySelectorAll('.category-card').forEach(c => c.classList.remove('active'));
             
             // Add active to clicked category
-            event.target.closest('.category-card').classList.add('active');
+            e.currentTarget.classList.add('active');
             
             // Clear previous content
             container.innerHTML = '';
