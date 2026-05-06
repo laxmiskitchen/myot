@@ -109,7 +109,6 @@
             color: var(--dark);
         }
 
-        /* Mobile menu overlay */
         .mobile-nav-overlay {
             position: fixed;
             top: 0;
@@ -156,25 +155,50 @@
             font-size: 1.2rem;
         }
 
-        /* ===== HERO SECTION ===== */
+        /* ===== HERO SECTION WITH SLIDESHOW ===== */
         .hero {
             height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23ff6b35" width="1200" height="800"/><rect fill="%23f7931e" x="200" y="100" width="800" height="600" rx="50"/></svg>');
-            background-size: cover;
-            background-position: center;
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: white;
-            position: relative;
             overflow: hidden;
+        }
+
+        .hero-slideshow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .hero-slideshow.active {
+            opacity: 1;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5));
+            z-index: 1;
         }
 
         .hero-content {
             max-width: 800px;
             padding: 0 2rem;
+            position: relative;
+            z-index: 2;
             animation: fadeInUp 1s ease;
         }
 
@@ -235,19 +259,45 @@
             transform: translateY(-3px);
         }
 
+        /* ===== VIEW TOGGLE BUTTONS ===== */
+        .view-toggle {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .view-btn {
+            padding: 0.8rem 1.5rem;
+            border: 2px solid var(--primary);
+            background: white;
+            color: var(--primary);
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .view-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
         /* ===== SECTIONS ===== */
         .section {
-    padding: 4rem 0; /* Reduced from 5rem */
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-left: 2rem;
-    padding-right: 2rem;
-}
+            padding: 3rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+
         .section-title {
             text-align: center;
             font-size: 2.5rem;
             font-weight: 700;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             background: linear-gradient(45deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -256,23 +306,21 @@
 
         /* ===== CATEGORIES CONTAINER ===== */
         .categories {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-bottom: 1rem !important; /* FIXED */
-}
-
-
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
 
         /* ===== INDIVIDUAL CATEGORY SECTION ===== */
         .category-section {
-    display: none;
-    margin: 1rem 0 !important; /* FIXED - minimal margins */
-    padding: 1.5rem !important;
-    background: white;
-    border-radius: 20px;
-    box-shadow: var(--shadow);
-}
+            display: none;
+            margin: 1rem 0;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
 
         .category-section.active {
             display: block;
@@ -280,70 +328,120 @@
         }
 
         .category-section h3 {
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: var(--primary);
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             text-align: center;
         }
 
         /* ===== CATEGORY CARDS ===== */
-.category-card {
-    background: white;
-    border-radius: 20px;
-    padding: 2.5rem;
-    text-align: center;
-    box-shadow: var(--shadow);
-    transition: all 0.3s ease;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-}
-
-.category-card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--shadow-lg);
-}
-
-.category-card.active {
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
-    color: white;
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: var(--shadow-lg);
-}
-
-/* ===== CATEGORY ICONS ===== */
-.category-icon {
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    position: relative;
-}
-
-.category-card.active .category-icon {
-    background: none !important;
-    -webkit-background-clip: initial !important;
-    -webkit-text-fill-color: white !important;
-    background-clip: initial !important;
-    color: white !important;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
-}
-        /* ===== MENU GRID FOR CATEGORY ITEMS ===== */
-        .category-menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
+        .category-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
 
-        /* ===== FULL MENU GRID ===== */
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
         }
 
+        .category-card.active {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .category-card.active .category-icon {
+            background: none !important;
+            -webkit-background-clip: initial !important;
+            -webkit-text-fill-color: white !important;
+            background-clip: initial !important;
+            color: white !important;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* ===== CARD VIEW ===== */
+        .menu-grid, .category-menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* ===== LIST VIEW ===== */
+        .menu-list {
+            display: none;
+        }
+
+        .menu-list.active {
+            display: block;
+        }
+
+        .menu-item-list {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .menu-item-list:hover {
+            transform: translateX(10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .menu-list-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 15px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .menu-list-content {
+            flex: 1;
+        }
+
+        .menu-list-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .menu-list-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-list-desc {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        /* ===== CARD VIEW ITEMS ===== */
         .menu-item {
             background: white;
             border-radius: 20px;
@@ -361,9 +459,12 @@
             box-shadow: var(--shadow-lg);
         }
 
-        .menu-image {
-            height: 220px;
+        .menu-image, .menu-list-image {
             background: linear-gradient(45deg, var(--primary), var(--secondary));
+        }
+
+        .menu-image {
+            height: 200px;
             position: relative;
             overflow: hidden;
         }
@@ -426,75 +527,60 @@
             animation: heartBeat 0.6s ease;
         }
 
-       /* ===== CONTACT SECTION - PERFECT WHITE TEXT ===== */
-.contact-section {
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: white;
-    text-align: center;
-    position: relative;
-}
-
-.contact-section .section-title {
-    color: white !important;
-    background: none !important;
-    -webkit-text-fill-color: white !important;
-    text-shadow: 2px 2px 6px rgba(0,0,0,0.6) !important;  /* STRONGER */
-    font-weight: 800 !important;
-}
-
-.contact-section p {
-    font-size: 1.3rem;
-    margin-bottom: 3rem;
-    opacity: 0.95;
-    color: white !important;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.5) !important;
-}
-
-.contact-info {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
-}
-
-.contact-item {
-    background: rgba(255,255,255,0.15);
-    padding: 2rem;
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-    border: 1px solid rgba(255,255,255,0.2);
-}
-
-.contact-item:hover {
-    transform: translateY(-5px);
-    background: rgba(255,255,255,0.25);
-}
-
-.contact-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.5));  /* ← CRISP EMOJI */
-}
-
-.phone-link {
-    color: white !important;
-    text-decoration: none;
-    font-size: 1.5rem;
-    font-weight: 600;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.5) !important;
-}
-
-        /* ===== PAYMENT SECTION ===== */
-        .payment-section {
-            background: var(--light);
+        /* ===== CONTACT SECTION ===== */
+        .contact-section {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
         }
 
-        .qr-image {
-            width: 200px;
-            height: 200px;
-            object-fit: contain;
-            margin-bottom: 15px;
+        .contact-section .section-title {
+            color: white !important;
+            background: none !important;
+            -webkit-text-fill-color: white !important;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+            font-weight: 800 !important;
+        }
+
+        .contact-section p {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+            color: white !important;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-item {
+            background: rgba(255,255,255,0.15);
+            padding: 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.25);
+        }
+
+        .contact-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .phone-link {
+            color: white !important;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
         }
 
         /* ===== ANIMATIONS ===== */
@@ -517,31 +603,36 @@
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
-            .nav-menu { 
-                display: none !important; 
-            }
-            .mobile-menu { 
-                display: flex; 
-            }
-            .cta-buttons { 
-                flex-direction: column; 
-                align-items: center; 
-            }
+            .nav-menu { display: none !important; }
+            .mobile-menu { display: flex; }
+            .cta-buttons { flex-direction: column; align-items: center; }
             .menu-grid, .category-menu-grid { 
                 grid-template-columns: 1fr; 
+                gap: 1rem;
             }
             .categories {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 1rem;
             }
             .section {
-                padding: 3rem 1rem;
+                padding: 2rem 1rem;
+            }
+            .menu-item-list {
+                flex-direction: column;
+                text-align: center;
+            }
+            .menu-list-image {
+                width: 100%;
+                height: 150px;
             }
         }
 
         @media (max-width: 480px) {
             .categories {
                 grid-template-columns: 1fr;
+            }
+            .nav-container {
+                padding: 0 1rem;
             }
         }
 
@@ -555,25 +646,6 @@
             opacity: 1;
             transform: translateY(0);
         }
-
-        @media (max-width: 768px) {
-    .section {
-        padding: 2rem 1rem !important; /* Much tighter on mobile */
-    }
-    
-    #categories {
-        padding-bottom: 1rem !important;
-    }
-}
-
-/* ===== EMERGENCY SCROLL GAP FIX ===== */
-#categories { padding-bottom: 1.5rem !important; }
-.category-section { margin: 0.5rem 0 !important; padding: 1.5rem !important; }
-.categories { margin-bottom: 0.5rem !important; }
-.section { padding: 3rem 0 !important; }
-@media (max-width: 768px) { .section { padding: 2rem 1rem !important; } }
-
-
     </style>
 </head>
 <body>
@@ -587,6 +659,7 @@
             <li><a href="#categories" class="nav-link">Menu</a></li>
             <li><a href="#full-menu" class="nav-link">Full Menu</a></li>
             <li><a href="#contact" class="nav-link">Contact</a></li>
+            <li><a href="#payment" class="nav-link">Payment</a></li>
         </ul>
     </div>
 
@@ -599,6 +672,7 @@
                 <li><a href="#categories" class="nav-link">Menu</a></li>
                 <li><a href="#full-menu" class="nav-link">Full Menu</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="#payment" class="nav-link">Payment</a></li>
             </ul>
             <div class="mobile-menu" id="mobileMenu">
                 <i class="fas fa-bars hamburger-icon"></i>
@@ -606,40 +680,39 @@
         </div>
     </nav>
 
-    <!-- ===== HERO ===== -->
+    <!-- ===== HERO WITH SPECIAL MENU SLIDESHOW ===== -->
     <section id="home" class="hero">
+        <div class="hero-slideshow active" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 800%22><rect fill=%22%23ff6b35%22 width=%221200%22 height=%22800%22/><rect fill=%22%23f7931e%22 x=%22200%22 y=%22100%22 width=%22800%22 height=%22600%22 rx=%2250%22/></svg>');"></div>
+        <div class="hero-slideshow" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 800%22><rect fill=%22%23667eea%22 width=%221200%22 height=%22800%22/><rect fill=%22%23ff6b35%22 x=%22150%22 y=%2280%22 width=%22900%22 height=%22640%22 rx=%2240%22/></svg>');"></div>
+        <div class="hero-slideshow" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 800%22><rect fill=%22%2328a745%22 width=%221200%22 height=%22800%22/><rect fill=%22%23f7931e%22 x=%22250%22 y=%22120%22 width=%22700%22 height=%2250%22 rx=%2230%22/></svg>');"></div>
+        
         <div class="hero-content">
             <h2>🍽️ Welcome to The Mumma's Kitchen</h2>
-            <p>Click on any category below to see delicious items!</p>
+            <p>Discover our Special Menu & Make Your Own Tiffin!</p>
             <div class="cta-buttons">
                 <a href="#categories" class="btn btn-primary">
-                    <i class="fas fa-utensils"></i> Explore Menu
+                    <i class="fas fa-utensils"></i> Explore Special Menu
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- ===== CATEGORIES SECTION WITH PRODUCTS BELOW ===== -->
+    <!-- ===== CATEGORIES SECTION ===== -->
     <section id="categories" class="section reveal">
         <h2 class="section-title">🍽️ Choose Your Category</h2>
-        
-        <!-- CATEGORY BUTTONS -->
-        <div class="categories" id="categoriesContainer">
-            <!-- Populated by JavaScript -->
-        </div>
-
-        <!-- INDIVIDUAL CATEGORY SECTIONS - SHOWS PRODUCTS HERE -->
-        <div id="categoryProductsContainer">
-            <!-- Dynamic category sections will appear here -->
-        </div>
+        <div class="categories" id="categoriesContainer"></div>
+        <div id="categoryProductsContainer"></div>
     </section>
 
-    <!-- ===== FULL MENU (All items) ===== -->
+    <!-- ===== FULL MENU ===== -->
     <section id="full-menu" class="section reveal">
         <h2 class="section-title">🍛 Complete Menu</h2>
-        <div class="menu-grid" id="menuGrid">
-            <!-- All menu items populated here -->
+        <div class="view-toggle">
+            <button class="view-btn active" data-view="card">Card View</button>
+            <button class="view-btn" data-view="list">List View</button>
         </div>
+        <div class="menu-grid" id="menuGridCard"></div>
+        <div class="menu-list" id="menuGridList"></div>
     </section>
 
     <!-- ===== CONTACT ===== -->
@@ -668,61 +741,69 @@
     </section>
 
     <!-- ===== PAYMENT ===== -->
-    <section id="payment" class="section payment-section reveal">
-        <h2 class="section-title">💳 Easy Payment</h2>
-        <div style="text-align: center;">
-            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; color: white; max-width: 350px; margin: 40px auto; padding: 40px 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
-                <img src="images/qr-image.png" alt="UPI QR Code" style="width: 200px; height: 200px; object-fit: contain; margin-bottom: 15px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
-                <h3>Scan to Pay</h3>
-                <p>Pay instantly using UPI apps</p>
-            </div>
+<section id="payment" class="section payment-section reveal">
+    <h2 class="section-title">💳 Easy Payment</h2>
+    <div style="text-align: center;">
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; color: white; max-width: 350px; margin: 40px auto; padding: 40px 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
+            <img src="images/qr-image.png" alt="UPI QR Code" style="width: 200px; height: 200px; object-fit: contain; margin-bottom: 15px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+            <h3>Scan to Pay</h3>
+            <p>Pay instantly using UPI apps</p>
         </div>
-    </section>
+    </div>
+</section>
 
     <script>
-        // ===== MENU DATA =====
+        // ===== UPDATED MENU DATA =====
         const menuData = [
-            // BREAKFAST
-            {id:1, name:"Poha", price:"₹120", desc:"Flattened rice with onions, peanuts & spices", category:"breakfast", image:"images/Poha.png"},
-            {id:2, name:"Upma", price:"₹110", desc:"Semolina with vegetables & coconut chutney", category:"breakfast", image:"images/Upma.jpg"},
-            {id:3, name:"Sheera", price:"₹130", desc:"Semolina pudding with ghee & dry fruits", category:"breakfast", image:"images/Sheera.jpg"},
-            // STARTERS
-            {id:4, name:"Masala Papad", price:"₹80", desc:"Crispy papad with onions & chaat masala", category:"starters", image:"images/masalapapad.webp"},
-            {id:5, name:"Fryums", price:"₹70", desc:"Crispy fried papad with spicy chutney", category:"starters", image:"images/fryums.jpg"},
-            // PAV BHAJI
-            {id:6, name:"Amul Pav Bhaji", price:"₹180", desc:"Classic pav bhaji with Amul butter", category:"pavbhaji", image:"images/amulpavbhaji.jpg"},
-            {id:7, name:"Desi Ghee Pav Bhaji", price:"₹200", desc:"Traditional with pure desi ghee", category:"pavbhaji", image:"images/desigheepavbhaji.jpg"},
-            {id:8, name:"Amul Pav Bhaji with Masala Pav", price:"₹220", desc:"With special masala pav", category:"pavbhaji", image:"images/ampabhajimasala.jpg"},
-            {id:9, name:"Desi Ghee Pav Bhaji with Masala Pav", price:"₹240", desc:"Premium with masala pav", category:"pavbhaji", image:"images/desigheepabhajmasla.jpg"},
-            // THALI
-            {id:10, name:"Veg Thali", price:"₹250", desc:"2 Chapati, 2 Sabji, Dal, Rice, Papad, Salad", category:"thali", image:"images/vegthali.jpg"},
-            {id:11, name:"Special Veg Thali", price:"₹320", desc:"2 Chapati, Paneer, 2 Sabji, Dal, Rice, Shrikhand", category:"thali", image:"images/specialvegthali.jpg"},
-            {id:12, name:"Gavran Thali", price:"₹280", desc:"2 Bhakri, 2 Bhaji, Thecha, Dahi, Kanda, Limbu", category:"thali", image:"images/gavranvegthali.jpg"},
-            {id:13, name:"Special Pithla Bhakri", price:"₹220", desc:"Authentic Maharashtrian pithla with bhakri", category:"thali", image:"images/pithlabhakri.webp"},
-            // RICE
-            {id:14, name:"Varan Bhat ani Sajuk Tup", price:"₹160", desc:"Varan bhat with homemade ghee", category:"rice", image:"images/varanbhat.jpg"},
-            {id:15, name:"Jeera Rice", price:"₹140", desc:"Fragrant basmati with cumin seeds", category:"rice", image:"images/jeerarice.jpg"},
-            {id:16, name:"Jeera Rice Masoora Marke", price:"₹180", desc:"Jeera rice with masoor dal tadka", category:"rice", image:"images/masoorjeerarice.jpg"},
-            {id:17, name:"Masale Bhat", price:"₹200", desc:"Spicy rice with Goda masala", category:"rice", image:"images/masalebhat.jpg"},
-            {id:18, name:"Kadhi Bhat", price:"₹170", desc:"Crispy pakoda kadhi with rice", category:"rice", image:"images/kadhibhat.webp"},
-            // BEVERAGES
-            {id:19, name:"Sprite - 200ml", price:"₹50", desc:"Refreshing lemon-lime soda", category:"beverages", image:"images/sprite.jpg"},
-            {id:20, name:"Pepsi - 200ml", price:"₹50", desc:"Classic cola taste", category:"beverages", image:"images/pepsi.jpg"},
-            {id:21, name:"Mirinda - 200ml", price:"₹50", desc:"Orange flavored fizzy drink", category:"beverages", image:"images/mirinda.jpg"},
-            {id:22, name:"Mattha", price:"₹40", desc:"Spiced buttermilk perfect with meals", category:"beverages", image:"images/mattha.jpg"},
-            {id:23, name:"Tak", price:"₹35", desc:"Fresh thin buttermilk", category:"beverages", image:"images/tak.webp"},
-            {id:24, name:"Sol Kadhi", price:"₹60", desc:"Traditional kokum & coconut milk drink", category:"beverages", image:"images/solkadhi.jpg"}
+            // SPECIAL MENU
+            {id:1, name:"Pav Bhaji / पाव भाजी", price:"₹99", desc:"Classic pav bhaji with butter", category:"special", image:"images/amulpavbhaji.jpg"},
+            {id:2, name:"Misal Pav / मिसळ पाव", price:"₹60", desc:"Spicy sprouted lentils with pav", category:"special", image:"images/misalpav.jpg"},
+            {id:3, name:"Beetroot Paratha / बीटरूट पराठा", price:"₹50", desc:"Healthy beetroot stuffed paratha", category:"special", image:"images/beetrootparatha.jpg"},
+            {id:4, name:"Palak Paratha / पालक पराठा", price:"₹50", desc:"Spinach stuffed whole wheat paratha", category:"special", image:"images/palakparatha.jpg"},
+            {id:5, name:"Methi Paratha / मेथी पराठा", price:"₹50", desc:"Fenugreek leaves stuffed paratha", category:"special", image:"images/methiparatha.jpg"},
+            {id:6, name:"Green Chutney Sandwich / ग्रीन चटणी सँडविच", price:"₹25", desc:"Fresh green chutney sandwich", category:"special", image:"images/greensandwich.jpg"},
+            {id:7, name:"Vegetable Sandwich / व्हेजिटेबल सँडविच", price:"₹35", desc:"Mixed vegetable sandwich", category:"special", image:"images/vegsandwich.jpg"},
+            {id:8, name:"Grill Sandwich (Cheese) / ग्रिल सँडविच (चीज)", price:"₹35", desc:"Grilled cheese sandwich", category:"special", image:"images/grillsandwich.jpg"},
+            {id:9, name:"Club Sandwich / क्लब सँडविच", price:"₹50", desc:"Triple decker club sandwich", category:"special", image:"images/clubsandwich.jpg"},
+            {id:10, name:"Pineapple Ice Cream Sandwich / पायनॅपल आईस्क्रीम सँडविच", price:"₹60", desc:"Pineapple ice cream between wafers", category:"special", image:"images/pineappleicecream.jpg"},
+            {id:11, name:"Chocolate Ice Cream Sandwich / चॉकलेट आईस्क्रीम सँडविच", price:"₹60", desc:"Chocolate ice cream sandwich", category:"special", image:"images/chocolateicecream.jpg"},
+            
+            // SPECIAL THALI
+            {id:12, name:"Special Thali / स्पेशल थाळी", price:"₹70", desc:"Varan, Bhat, 3 Chapati, 2 Bhaji & Sweet Dish (वरण, भात, ३ चपाती, २ भाजी व गोड पदार्थ)", category:"thali", image:"images/specialthali.png"},
+            
+            // MAKE YOUR OWN TIFFIN - GRAVIES
+            {id:13, name:"Rajma / राजमा", price:"₹70", desc:"Kidney beans curry", category:"tiffin", image:"images/rajma.jpg"},
+            {id:14, name:"Chole / छोले", price:"₹70", desc:"Chickpea curry", category:"tiffin", image:"images/chole.jpg"},
+            {id:15, name:"Soyabin / सोयाबीन", price:"₹70", desc:"Soya chunks curry", category:"tiffin", image:"images/soyabean.jpg"},
+            {id:16, name:"Lasoon Methi / लसूण मेथी", price:"₹70", desc:"Garlic fenugreek curry", category:"tiffin", image:"images/lasoonmethi.jpg"},
+            {id:17, name:"Palak Gravy / पालक ग्रेव्ही", price:"₹70", desc:"Spinach gravy", category:"tiffin", image:"images/palakgravy.jpg"},
+            {id:18, name:"Dodka Bhaji / दोडका भाजी", price:"₹70", desc:"Ridge gourd vegetable", category:"tiffin", image:"images/dodkabhaji.png"},
+            {id:19, name:"Bhopla Bhaji / भोपळा भाजी", price:"₹70", desc:"Pumpkin vegetable", category:"tiffin", image:"images/bhoplabhaji.webp"},
+            {id:20, name:"Bhendi Fry / भेंडी फ्राय", price:"₹70", desc:"Okra stir fry", category:"tiffin", image:"images/bhendifry.jpg"},
+            {id:21, name:"Gawar Bhaji / गवार भाजी", price:"₹70", desc:"Cluster beans vegetable", category:"tiffin", image:"images/gawar.webp"},
+            
+            // MAKE YOUR OWN TIFFIN - ROTIS
+            {id:22, name:"Chapati / चपाती", price:"₹15", desc:"Whole wheat chapati", category:"tiffin", image:"images/chapati.webp"},
+            {id:23, name:"Phulka / फुलका", price:"₹15", desc:"Puffed phulka", category:"tiffin", image:"images/phulka.jpg"},
+            {id:24, name:"Jwari Bhakri / ज्वारी भाकरी", price:"₹20", desc:"Jowar flatbread", category:"tiffin", image:"images/jwaribhakri.jpg"},
+            {id:25, name:"Bajari Bhakri / बाजरी भाकरी", price:"₹20", desc:"Bajra flatbread", category:"tiffin", image:"images/bajaribhakri.jpg"},
+            
+            // MAKE YOUR OWN TIFFIN - RICE
+            {id:26, name:"Dal Khichdi Bhaat / डाळ खिचडी भात", price:"₹80", desc:"Lentil rice khichdi", category:"tiffin", image:"images/khichdi.jpg"},
+            {id:27, name:"Jeera Rice / जिरा राईस", price:"₹50", desc:"Cumin tempered rice", category:"tiffin", image:"images/jeerarice.jpg"},
+            {id:28, name:"Plain Rice / साधा भात", price:"₹35", desc:"Steamed plain rice", category:"tiffin", image:"images/plainrice.jpg"},
+            {id:29, name:"Pulav / पुलाव", price:"₹70", desc:"Vegetable pulav rice", category:"tiffin", image:"images/pulav.webp"}
         ];
 
         // ===== CATEGORY CONFIG =====
         const categoryConfig = {
-            breakfast: { name: "Breakfast", icon: "fas fa-coffee" },
-            starters: { name: "Starters", icon: "fas fa-drumstick-bite" },
-            pavbhaji: { name: "Pav Bhaji", icon: "fas fa-bread-slice" },
-            thali: { name: "Thali", icon: "fas fa-th" },
-            rice: { name: "Rice", icon: "fas fa-rice" },
-            beverages: { name: "Beverages", icon: "fas fa-glass-whiskey" }
+            special: { name: "Special Menu ⭐", icon: "fas fa-star" },
+            thali: { name: "Special Thali 👑", icon: "fas fa-th-large" },
+            tiffin: { name: "Make Your Own Tiffin 🛠️", icon: "fas fa-utensils" }
         };
+
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.hero-slideshow');
 
         // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', function() {
@@ -731,10 +812,21 @@
             initScrollAnimations();
             initLikeButtons();
             initSmoothScrolling();
-            initMobileMenu(); // ✅ Mobile menu initialization
+            initMobileMenu();
+            initViewToggle();
+            startSlideshow();
         });
 
-        // ===== MOBILE MENU FUNCTIONALITY ✅ FIXED =====
+        // ===== HERO SLIDESHOW =====
+        function startSlideshow() {
+            setInterval(() => {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }, 4000);
+        }
+
+        // ===== MOBILE MENU =====
         function initMobileMenu() {
             const mobileMenu = document.getElementById('mobileMenu');
             const mobileNavMenu = document.getElementById('mobileNavMenu');
@@ -751,11 +843,32 @@
                 mobileNavOverlay.classList.remove('active');
             });
 
-            // Close mobile menu when clicking on nav links
             document.querySelectorAll('.mobile-nav-menu .nav-link').forEach(link => {
                 link.addEventListener('click', function() {
                     mobileNavMenu.classList.remove('active');
                     mobileNavOverlay.classList.remove('active');
+                });
+            });
+        }
+
+        // ===== VIEW TOGGLE =====
+        function initViewToggle() {
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const view = this.dataset.view;
+                    
+                    // Update buttons
+                    document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Toggle views
+                    if (view === 'card') {
+                        document.getElementById('menuGridCard').style.display = 'grid';
+                        document.getElementById('menuGridList').classList.remove('active');
+                    } else {
+                        document.getElementById('menuGridCard').style.display = 'none';
+                        document.getElementById('menuGridList').classList.add('active');
+                    }
                 });
             });
         }
@@ -778,7 +891,6 @@
                 container.appendChild(card);
             });
 
-            // Add click listeners
             document.querySelectorAll('.category-card').forEach(card => {
                 card.addEventListener('click', function(e) {
                     const category = this.dataset.category;
@@ -787,48 +899,40 @@
             });
         }
 
-        // ===== GET ITEM COUNT PER CATEGORY =====
+        // ===== GET ITEM COUNT =====
         function getCategoryItemCount(category) {
             return menuData.filter(item => item.category === category).length;
         }
 
-        // ===== SHOW PRODUCTS UNDER CATEGORY - FIXED =====
+        // ===== SHOW CATEGORY PRODUCTS =====
         function showCategoryProducts(category, e) {
             const container = document.getElementById('categoryProductsContainer');
             
-            // Remove active class from all category cards
             document.querySelectorAll('.category-card').forEach(c => c.classList.remove('active'));
-            
-            // Add active to clicked category
             e.currentTarget.classList.add('active');
             
-            // Clear previous content
             container.innerHTML = '';
             
-            // Filter items for this category
             const categoryItems = menuData.filter(item => item.category === category);
             
-            // Create category section
             const categorySection = document.createElement('div');
             categorySection.className = 'category-section active';
-            categorySection.id = `category-${category}`;
             categorySection.innerHTML = `
                 <h3><i class="${categoryConfig[category].icon}"></i> ${categoryConfig[category].name}</h3>
-                <div class="category-menu-grid" id="category-grid-${category}"></div>
+                <div class="menu-grid category-menu-grid" id="category-grid-${category}"></div>
             `;
             
             container.appendChild(categorySection);
             
-            // Populate products
             const grid = document.getElementById(`category-grid-${category}`);
             categoryItems.forEach((item, index) => {
-                const menuItem = createMenuItem(item, index);
+                const menuItem = createMenuItemCard(item, index);
                 grid.appendChild(menuItem);
             });
         }
 
-        // ===== CREATE MENU ITEM =====
-        function createMenuItem(item, index) {
+        // ===== CREATE CARD MENU ITEM =====
+        function createMenuItemCard(item, index) {
             const div = document.createElement('div');
             div.className = 'menu-item';
             div.style.animationDelay = `${index * 0.1}s`;
@@ -850,12 +954,35 @@
             return div;
         }
 
-        // ===== POPULATE FULL MENU =====
+        // ===== CREATE LIST MENU ITEM =====
+        function createMenuItemList(item, index) {
+            const div = document.createElement('div');
+            div.className = 'menu-item-list';
+            div.style.animationDelay = `${index * 0.05}s`;
+            div.innerHTML = `
+                <img src="${item.image}" alt="${item.name}" class="menu-list-image" loading="lazy">
+                <div class="menu-list-content">
+                    <h3 class="menu-list-name">${item.name}</h3>
+                    <div class="menu-list-price">${item.price}</div>
+                    <p class="menu-list-desc">${item.desc}</p>
+                    <div class="menu-actions">
+                        <button class="like-btn" data-id="${item.id}">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            return div;
+        }
+
+        // ===== POPULATE FULL MENU (BOTH VIEWS) =====
         function populateFullMenu() {
-            const menuGrid = document.getElementById('menuGrid');
+            const cardGrid = document.getElementById('menuGridCard');
+            const listGrid = document.getElementById('menuGridList');
+            
             menuData.forEach((item, index) => {
-                const menuItem = createMenuItem(item, index);
-                menuGrid.appendChild(menuItem);
+                cardGrid.appendChild(createMenuItemCard(item, index));
+                listGrid.appendChild(createMenuItemList(item, index));
             });
         }
 
